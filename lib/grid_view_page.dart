@@ -10,16 +10,59 @@ class GridViewPage extends StatefulWidget {
 }
 
 class _GridViewPageState extends State<GridViewPage> {
+  int _columnCount = 2;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+              heroTag: 'grid_on',
+              onPressed: () {
+                if (_columnCount < 3) {
+                  setState(() {
+                    _columnCount++;
+                  });
+                }
+              },
+              child: Icon(
+                Icons.grid_on,
+                color: Colors.white,
+              )),
+          SizedBox(
+            height: 16,
+          ),
+          FloatingActionButton(
+              heroTag: 'grid_off',
+              onPressed: () {
+                if (_columnCount > 2) {
+                  setState(() {
+                    _columnCount--;
+                  });
+                }
+              },
+              child: Icon(
+                Icons.grid_off,
+                color: Colors.white,
+              )),
+          SizedBox(
+            height: 16,
+          ),
+          FloatingActionButton(
+              heroTag: 'arrow_upward',
+              onPressed: () {},
+              child: Icon(
+                Icons.arrow_upward,
+                color: Colors.white,
+              )),
+        ],
       ),
       body: GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
+          crossAxisCount: _columnCount,
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,
         ),
